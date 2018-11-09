@@ -3,7 +3,7 @@
 
 
 // Declare word related variables
-var words = ["JavaScript", "Variable", "Function", "Array", "HTML", "CSS"]; // Original word array
+var words = ["JavaScript"];//, "Variable", "Function", "Array", "HTML", "CSS", "jQuery", "terminal", "pseudocode"]; // Original word array
 var wordsRemain = words.slice(); // Sliced array of remaining words after each game starts
 var currentWord; // Current word to be guessed
 var lastWord; // Display word after game completes
@@ -16,12 +16,31 @@ var guessedLetters = []; // Guessed letters array
 var guessedWord = []; // Guessed word array showing correctly guessed letters
 
 
+
 // FUNCTIONS
 // =========
 
 
 // Display word function
+function displayWord() {
 
+  // Hide current word with underscores "_"
+  var hiddenWord = [];
+  for (var i = 0; i < currentWord.length; i++) {
+    hiddenWord.push("_");
+  }
+
+  // Update display
+  $("#wins-text").text(wins);
+  $("#current-word-text").text(hiddenWord.join(' '));
+  $("#guess-remain-text").text(numGuess);
+  $("#letters-guessed-text").text(guessedLetters.join(', ').toUpperCase());
+
+
+  if (currentWord === "") {
+    $("#instr-text").text("No more words remaining. Refresh browser to try again.") 
+  }
+}
 
 // Start new game function
 function newGame() {
@@ -35,15 +54,18 @@ function newGame() {
   guessedLetters = [];
   guessedWord = [];
   numGuess = 12;
+
+  // Call displayWord function
+  displayWord(currentWord);
 }
 
 // Update wins score function
 function winsScore() {
   wins++;
-  newGame();
+  newGame(); // Call newGame function
 }
 
-// Main game function
+// MAIN GAME CONTROLLER
 newGame();
 
 var firstGuess = true; // Flag for first letter guess of each game
@@ -53,10 +75,10 @@ var prevGuess = false; // Flag for letter previously guessed
 document.onkeyup = function(event) {
   var userKey = event.key;
 
-  // Check if key pressed is letter
+  // Check if key pressed is letter and word remains
   var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   for (var i = 0; i < alphabet.length; i++) {
-    if (userKey === alphabet[i]) {
+    if (userKey === alphabet[i] && currentWord !== "") {
       // Set letter from checked key press
       letterGuess = userKey;
 
@@ -65,7 +87,8 @@ document.onkeyup = function(event) {
         // Add letter to guessed letters array
         guessedLetters.push(letterGuess);
         numGuess--;
-        firstGuess = false;
+        firstGuess =  false;
+        displayWord();
       }
       
       // Check if letter not guessed previously
@@ -78,27 +101,23 @@ document.onkeyup = function(event) {
         // Add letter to guessed letters array
         guessedLetters.push(letterGuess);
         numGuess--;
-        console.log("guessedLetters-" + guessedLetters);
+        displayWord();
       }
 
       // Check if letter is in current word
       for (var k = 0; k < currentWord.length; k++) {
         if (letterGuess === currentWord[k].toLowerCase()) {
           guessedWord[k] = letterGuess;
-          console.log("guessedWord-" + guessedWord);
           
           // Check if all letters in word have been guessed
           if (guessedWord.join('') === currentWord.toLowerCase()) {
-            console.log("you win");
-            winsScore();
+            winsScore(); // Call winsScore function
             return;
           }
 
         // Check if number of guesses is 0
         } else if (numGuess === 0) {
-          // start new game
-          console.log("you lose");
-          newGame();
+          newGame(); // Call newGame function
           return;
         }
       }
