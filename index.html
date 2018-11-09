@@ -5,26 +5,66 @@
   <title>Word Guess Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <!-- Reset styles -->
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+  <!-- Bootsrap styles -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  
   <!-- Custom styles -->
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 </head>
 
 <body>
-  <div>
-    <h1>Hangman</h1>
-    <h2>Boot Camp Style</h2>
-    <h3 id="last-word-text"></h3>
-    <p id="instr-text">Press any key to get started!</p>
-    <p>Wins</p>
-    <p id="wins-text">Wins</p>
-    <p>Current Word</p>
-    <p id="current-word-text"></p>
-    <p>Number of Guesses Remaining</p>
-    <p id="guess-remain-text"></p>
-    <p>Letters Already Guessed</p>
-    <p id="letters-guessed-text"></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" align="center">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">Hangman</h1>
+            <p class="lead">Coding Boot Camp Style</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row display">
+      <div class="col-md-6 border border-dark" align="center">
+        <img src="assets/images/bootcamp.jpg" class="img-fluid" alt="Responsive image">
+      </div>
+      <div class="col-md-6 border border-dark p-3 mb-2 bg-success text-white" align="center">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 id="last-word-text"></h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"> 
+            <p id="instr-text">Press any key to get started!</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"> 
+            <p>Wins</p>
+            <p id="wins-text">Wins</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p>Current Word</p>
+            <p id="current-word-text"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"> 
+            <p>Number of Guesses Remaining</p>
+            <p id="guess-remain-text"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"> 
+            <p>Letters Already Guessed</p>
+            <p id="letters-guessed-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- jQuery Library -->
