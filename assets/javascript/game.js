@@ -3,10 +3,11 @@
 
 
 // Declare word related variables
-var words = ["JavaScript"];//, "Variable", "Function", "Array", "HTML", "CSS", "jQuery", "terminal", "pseudocode"]; // Original word array
+var words = ["JavaScript", "Variable", "Function", "Array", "HTML", "CSS", "jQuery", "Terminal", "Pseudocode", "MERN"]; // Original word array
 var wordsRemain = words.slice(); // Sliced array of remaining words after each game starts
 var currentWord; // Current word to be guessed
 var lastWord; // Display word after game completes
+var hiddenWord = []; // Hide current word for display
 
 // Declare game related variables
 var wins = 0; // Start at 0 wins when game app refreshes
@@ -24,17 +25,12 @@ var guessedWord = []; // Guessed word array showing correctly guessed letters
 // Display word function
 function displayWord() {
 
-  // Hide current word with underscores "_"
-  var hiddenWord = [];
-  for (var i = 0; i < currentWord.length; i++) {
-    hiddenWord.push("_");
-  }
-
   // Update display
   $("#wins-text").text(wins);
-  $("#current-word-text").text(hiddenWord.join(' '));
+  $("#current-word-text").text(hiddenWord.join(' ').toUpperCase());
   $("#guess-remain-text").text(numGuess);
   $("#letters-guessed-text").text(guessedLetters.join(', ').toUpperCase());
+  $("#last-word-text").text(lastWord);
 
 
   if (currentWord === "") {
@@ -54,6 +50,12 @@ function newGame() {
   guessedLetters = [];
   guessedWord = [];
   numGuess = 12;
+  hiddenWord = [];
+
+  // Hide current word with underscores "_"
+  for (var i = 0; i < currentWord.length; i++) {
+    hiddenWord.push("_");
+  }
 
   // Call displayWord function
   displayWord(currentWord);
@@ -108,6 +110,8 @@ document.onkeyup = function(event) {
       for (var k = 0; k < currentWord.length; k++) {
         if (letterGuess === currentWord[k].toLowerCase()) {
           guessedWord[k] = letterGuess;
+          hiddenWord[k] = letterGuess;
+          displayWord();
           
           // Check if all letters in word have been guessed
           if (guessedWord.join('') === currentWord.toLowerCase()) {
