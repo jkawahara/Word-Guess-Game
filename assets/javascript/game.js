@@ -70,7 +70,6 @@ function winsScore() {
 // MAIN GAME CONTROLLER
 newGame();
 
-var firstGuess = true; // Flag for first letter guess of each game
 var prevGuess = false; // Flag for letter previously guessed
 
 // Event listener for user key press
@@ -83,27 +82,12 @@ document.onkeyup = function(event) {
     if (userKey === alphabet[i] && currentWord !== "") {
       // Set letter from checked key press
       letterGuess = userKey;
-
-      // Check if first guess of game
-      if (firstGuess) {
-        // Add letter to guessed letters array
-        guessedLetters.push(letterGuess);
-        numGuess--;
-        firstGuess =  false;
-        displayWord();
-      }
       
       // Check if letter not guessed previously
       for (var j = 0; j < guessedLetters.length; j++) {
         if (letterGuess === guessedLetters[j]) {
           prevGuess = true;
         }
-      }
-      if (!prevGuess) {        
-        // Add letter to guessed letters array
-        guessedLetters.push(letterGuess);
-        numGuess--;
-        displayWord();
       }
 
       // Check if letter is in current word
@@ -118,14 +102,21 @@ document.onkeyup = function(event) {
             winsScore(); // Call winsScore function
             return;
           }
-
-        // Check if number of guesses is 0
-        } else if (numGuess === 0) {
-          newGame(); // Call newGame function
-          return;
         }
       }
+      if (!prevGuess) {        
+        // Add letter to guessed letters array
+        guessedLetters.push(letterGuess);
+        numGuess--;
+        displayWord();
+      }
       prevGuess = false;
+
+      // Check if number of guesses is 0
+      if (numGuess === 0) {
+        newGame(); // Call newGame function
+        return;
+      }
     }
   } 
 }
